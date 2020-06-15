@@ -298,6 +298,10 @@ return value is just PATH."
 ;; stick around.
 (setq radian--finalize-init-hook nil)
 
+(defcustom radian-make-executable "make"
+  "Executable path of make command used by radian.el."
+  :type 'string)
+
 (defcustom radian-before-straight-hook nil
   "Hook run just before Radian bootstraps straight.el.
 For use with `radian-local-on-hook' in init.local.el."
@@ -3938,7 +3942,7 @@ messages."
         (make-process
          :name "radian-byte-compile"
          :buffer " *radian-byte-compile*"
-         :command '("make" "compile")
+         :command `(,radian-make-executable "compile")
          :noquery t
          :sentinel
          (lambda (proc _event)
